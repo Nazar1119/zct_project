@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from aws_bedrock_usage import get_response
+from aws_bedrock_usage import get_agent_response
 
 app = Flask(__name__)
 
@@ -11,9 +11,9 @@ def handle_prompt():
         return jsonify({'error': 'The "prompt" field is required.'}), 400
 
     prompt = data['prompt']
-    response = get_response(prompt)
+    result = get_agent_response(prompt)
 
-    return jsonify({'response': response['output']['message']['content'][0]['text']})
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True)
