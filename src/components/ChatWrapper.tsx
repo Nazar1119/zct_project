@@ -3,35 +3,106 @@
 import { useChat } from "@ai-sdk/react"
 import { Message } from "./Message"
 import { Messages } from "./Messages"
+import { Bot } from "lucide-react"
+import { useState } from "react";
+import { Message as TMessage } from "ai/react";
 
-export const ChatWrapper = ({sessionId}: {sessionId: string}) => {
-    const { messages, handleInputChange, handleSubmit, input } = useChat({
-        api: "/api/chat-stream",
-        body: { sessionId }, 
-    })
 
-    return(
-        <div className="relative min-h-full bg-zing-900 flex divide-y divide-zinc-700 flex-col justify-between gap-2">
-            <div className="flex-1 text-black bg-zinc-800 justify-between flex flex-col">
-                <Messages messages={ messages }/>
-            </div>
+export const ChatWrapper = ({ sessionId }: { sessionId: string }) => {
+  const [messages, setMessages] = useState<TMessage[]>([]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-            <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-zinc-900">
-  <input
-    className="flex-1 rounded-lg px-4 py-2 bg-zinc-800 text-white border border-zinc-700 outline-none"
-    value={input}
-    onChange={handleInputChange}
-    type="text"
-    placeholder="Type a message..."
-  />
-  <button
-    type="submit"
-    className="px-4 py-2 rounded-lg bg-blue-700 text-white hover:bg-blue-600"
-  >
-    Send
-  </button>
-</form>
-        </div>
-    )
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
 
-}
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const userMessage: TMessage = {
+      id: Date.now().toString(),
+      role: "user",
+      content: input,
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/chat-stream", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [userMessage], sessionId }),
+      });
+
+      const data = await response.json();
+      console.log("Manual API Response:", data);
+
+      const botMessage: TMessage = {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: data.content || data.message?.content || data.messages?.[0]?.content || "Error: No content in response",
+      };
+
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (error) {
+      console.error("Manual Fetch Error:", error);
+      const errorMessage: TMessage = {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: "Sorry, something went wrong.",
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="relative min-h-screen bg-zinc-900 flex flex-col">
+      <header className="p-4 bg-zinc-800 border-b border-zinc-700 flex items-center gap-3">
+        <Bot className="h-6 w-6 text-blue-500" />
+        <h1 className="text-lg font-semibold text-white">Masyme Coach</h1>
+      </header>
+      <div className="flex-1 bg-zinc-800 flex flex-col">
+        <Messages messages={messages} />
+        {isLoading && (
+          <div className="p-4 text-gray-400 italic">
+            Bot is typing...
+          </div>
+        )}
+      </div>
+      <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-zinc-900 border-t border-zinc-700">
+        <input
+          className="flex-1 rounded-lg px-4 py-2 bg-zinc-800 text-white border border-zinc-700 outline-none shadow-md focus:ring-2 focus:ring-blue-500"
+          value={input}
+          onChange={handleInputChange}
+          type="text"
+          placeholder="Ask me anything..."
+        />
+        <button
+          type="submit"
+          className="p-2 rounded-full bg-blue-700 text-white hover:bg-blue-600"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+            />
+          </svg>
+        </button>
+      </form>
+    </div>
+  );
+};

@@ -103,7 +103,13 @@ export const POST = async (req: NextRequest) => {
 
   try {
     const response = await getBedrockResponse(lastMessage);
-    return NextResponse.json({ content: response }); // Simplified format
+    const apiResponse = {
+      id: Date.now().toString(),
+      role: "assistant",
+      content: response,
+    };
+    console.log("API Response Sent to Frontend:", apiResponse);
+    return NextResponse.json(apiResponse);
   } catch (error) {
     console.error("Error in Bedrock chat:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
