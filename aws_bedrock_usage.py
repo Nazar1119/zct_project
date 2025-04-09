@@ -12,7 +12,7 @@ def get_agent_response(prompt):
 
         response = bedrock_agent_runtime.invoke_agent(
             agentId="CFIV0UBXCN",             # Замінити на свій
-            agentAliasId="7DWVQC9SB3",        # Замінити на свій
+            agentAliasId="U305PCUBYC",        # Замінити на свій
             sessionId="zct_id1",
             inputText=prompt
         )
