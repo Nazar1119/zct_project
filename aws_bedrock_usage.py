@@ -11,7 +11,7 @@ def get_response(prompt):
     "accept": "application/json",
     "body": json.dumps({
       "inferenceConfig": {
-        "max_new_tokens": 1000
+        "max_new_tokens": 500
       },
       "messages": [
         {
