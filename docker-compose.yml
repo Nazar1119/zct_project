@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  zct_web:
+    build:
+      context: ./zct
+      dockerfile: Dockerfile
+    container_name: ai_coach  # Переместили сюда
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./zct:/zct
+    environment:
+      - FLASK_ENV=development
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+    restart: unless-stopped

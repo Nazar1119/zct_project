@@ -3,6 +3,10 @@ from aws_bedrock_usage import get_response
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def hello():
+    return "Hello, use /prompt!"
+
 @app.route('/prompt', methods=['POST'])
 def handle_prompt():
     data = request.get_json()
@@ -16,4 +20,4 @@ def handle_prompt():
     return jsonify({'response': response['output']['message']['content'][0]['text']})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
