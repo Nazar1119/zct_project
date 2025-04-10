@@ -6,7 +6,7 @@ def get_response(prompt):
   bedrock_runtime = boto3.client("bedrock-runtime", region_name="us-east-2")
 
   kwargs = {
-    "modelId": "arn:aws:bedrock:us-east-2:668610423384:inference-profile/us.amazon.nova-pro-v1:0",
+    "modelId": "arn:aws:bedrock:us-east-2:668610423384:inference-profile/us.amazon.nova-micro-v1:0",
     "contentType": "application/json",
     "accept": "application/json",
     "body": json.dumps({
