@@ -1,7 +1,5 @@
 "use client"
 
-import { useChat } from "@ai-sdk/react"
-import { Message } from "./Message"
 import { Messages } from "./Messages"
 import { Bot } from "lucide-react"
 import { useState } from "react";
@@ -63,16 +61,55 @@ export const ChatWrapper = ({ sessionId }: { sessionId: string }) => {
 
   return (
     <div className="relative min-h-screen bg-zinc-900 flex flex-col">
-      <header className="p-4 bg-zinc-800 border-b border-zinc-700 flex items-center gap-3">
+      {/* <header className="p-4 bg-zinc-800 border-b border-zinc-700 flex items-center gap-3">
         <Bot className="h-6 w-6 text-blue-500" />
-        <h1 className="text-lg font-semibold text-white">Masyme Coach</h1>
-      </header>
-      <div className="flex-1 bg-zinc-800 flex flex-col">
+        <img
+          src="/bot_avatar.png" // Path to your image in the public directory
+          alt="Bot Avatar"
+          className="h-17 w-20 rounded-full object-cover"
+        />
+        <h1 className="text-lg font-semibold text-white">Chat GYM</h1>
+      </header> */}
+      {/* <div className="flex-1 bg-zinc-800 flex flex-col">
         <Messages messages={messages} />
         {isLoading && (
           <div className="p-4 text-gray-400 italic">
             Bot is typing...
           </div>
+        )}
+      </div> */}
+      <div className="flex-1 bg-zinc-800 flex flex-col">
+        {messages.length === 0 ? (
+          // Welcome Screen with Logo
+          <div className="flex-1 flex flex-col items-center justify-center text-center p-4">
+            <img
+              src="/logo.png"
+              alt="Chat GYM Logo"
+              className="h-70 w-70 mb-10 rounded-full object cover" // Large logo, centered
+            />
+            <h2 className="text-3xl font-bold text-white mb-4">Welcome to Chat GYM</h2>
+            <p className="text-gray-400 max-w-md">
+               I'm waiting for you questions. Let me make your training better! In health body - is health soul!
+            </p>
+          </div>
+        ) : (
+          // Chat Interface
+          <>
+          <header className="p-4 bg-zinc-800 border-b border-zinc-700 flex items-center gap-3">
+            <img
+              src="/bot_avatar.png" // Path to your image in the public directory
+              alt="Bot Avatar"
+              className="h-17 w-20 rounded-full object-cover"
+            />
+            <h1 className="text-lg font-semibold text-white">Chat GYM</h1>
+          </header>
+            <Messages messages={messages} />
+            {isLoading && (
+              <div className="p-4 text-gray-400 italic">
+                Bot GYM is typing...
+              </div>
+            )}
+          </>
         )}
       </div>
       <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-zinc-900 border-t border-zinc-700">

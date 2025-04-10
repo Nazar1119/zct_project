@@ -6,7 +6,7 @@ import { Bot } from "lucide-react"
 interface MessageProps {
     content: string;
     isUserMessage: boolean;
-    timestamp?: string; // Add timestamp prop
+    timestamp?: string;
   }
   
   export const Message = ({ content, isUserMessage, timestamp }: MessageProps) => {
