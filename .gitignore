@@ -17,3 +17,8 @@ node_modules/
 node_modules/
 .DS_Store
 .env
+
+try.py
+keys.py
+iam_keys.py
+__pycache__
