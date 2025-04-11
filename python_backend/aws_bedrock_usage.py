@@ -6,7 +6,7 @@
 #   bedrock_runtime = boto3.client("bedrock-runtime", region_name="us-east-2")
 
 #   kwargs = {
-#     "modelId": "arn:aws:bedrock:us-east-2:668610423384:inference-profile/us.amazon.nova-pro-v1:0",
+#     "modelId": "arn:aws:bedrock:us-east-2:668610423384:inference-profile/us.amazon.nova-micro-v1:0",
 #     "contentType": "application/json",
 #     "accept": "application/json",
 #     "body": json.dumps({
@@ -45,8 +45,8 @@ def get_agent_response(prompt):
         bedrock_agent_runtime = boto3.client("bedrock-agent-runtime", region_name="us-east-2")
 
         response = bedrock_agent_runtime.invoke_agent(
-            agentId="CFIV0UBXCN",             
-            agentAliasId="U305PCUBYC",       
+            agentId="CFIV0UBXCN",             # Замінити на свій
+            agentAliasId="U305PCUBYC",        # Замінити на свій
             sessionId="zct_id1",
             inputText=prompt
         )

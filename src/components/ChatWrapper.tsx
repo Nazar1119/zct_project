@@ -30,30 +30,40 @@ export const ChatWrapper = ({ sessionId }: { sessionId: string }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/chat-stream", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [userMessage], sessionId }),
-      });
+    const response = await fetch("/api/chat-stream", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: [userMessage], sessionId }),
+    });
 
-      const data = await response.json();
-      console.log("Manual API Response:", data);
+    console.log("Response Status:", response.status);
+    console.log("Response Headers:", response.headers);
 
-      const botMessage: TMessage = {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: data.content || data.message?.content || data.messages?.[0]?.content || "Error: No content in response",
-      };
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-      setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
-      console.error("Manual Fetch Error:", error);
-      const errorMessage: TMessage = {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: "Sorry, something went wrong.",
-      };
-      setMessages((prev) => [...prev, errorMessage]);
+    const text = await response.text();
+    console.log("Raw Response Body:", text);
+
+    const data = JSON.parse(text);
+    console.log("Manual API Response:", data);
+
+    const botMessage: TMessage = {
+      id: Date.now().toString(),
+      role: "assistant",
+      content: data.content || data.message?.content || data.messages?.[0]?.content || "Error: No content in response",
+    };
+
+    setMessages((prev) => [...prev, botMessage]);
+  } catch (error) {
+    console.error("Manual Fetch Error:", error);
+    const errorMessage: TMessage = {
+      id: Date.now().toString(),
+      role: "assistant",
+      content: "Sorry, something went wrong.",
+    };
+    setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -61,26 +71,8 @@ export const ChatWrapper = ({ sessionId }: { sessionId: string }) => {
 
   return (
     <div className="relative min-h-screen bg-zinc-900 flex flex-col">
-      {/* <header className="p-4 bg-zinc-800 border-b border-zinc-700 flex items-center gap-3">
-        <Bot className="h-6 w-6 text-blue-500" />
-        <img
-          src="/bot_avatar.png" // Path to your image in the public directory
-          alt="Bot Avatar"
-          className="h-17 w-20 rounded-full object-cover"
-        />
-        <h1 className="text-lg font-semibold text-white">Chat GYM</h1>
-      </header> */}
-      {/* <div className="flex-1 bg-zinc-800 flex flex-col">
-        <Messages messages={messages} />
-        {isLoading && (
-          <div className="p-4 text-gray-400 italic">
-            Bot is typing...
-          </div>
-        )}
-      </div> */}
       <div className="flex-1 bg-zinc-800 flex flex-col">
         {messages.length === 0 ? (
-          // Welcome Screen with Logo
           <div className="flex-1 flex flex-col items-center justify-center text-center p-4">
             <img
               src="/logo.png"
@@ -93,13 +85,12 @@ export const ChatWrapper = ({ sessionId }: { sessionId: string }) => {
             </p>
           </div>
         ) : (
-          // Chat Interface
           <>
-          <header className="p-4 bg-zinc-800 border-b border-zinc-700 flex items-center gap-3">
+         <header className="w-full p-4 bg-zinc-800 border-b border-zinc-700 flex items-center justify-center gap-3">
             <img
-              src="/bot_avatar.png" // Path to your image in the public directory
+              src="/bot_avatar.png"
               alt="Bot Avatar"
-              className="h-17 w-20 rounded-full object-cover"
+              className="h-20 w-20 rounded-full object-cover animate-fade-in-scale"
             />
             <h1 className="text-lg font-semibold text-white">Chat GYM</h1>
           </header>
