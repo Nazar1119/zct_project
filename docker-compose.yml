@@ -5,9 +5,9 @@ services:
     build:
       context: ./zct
       dockerfile: Dockerfile
-    container_name: ai_coach  # Переместили сюда
+    container_name: ai_coach
     ports:
-      - "5000:5000"
+      - "5001:5001"
     volumes:
       - ./zct:/zct
     environment:
@@ -15,4 +15,5 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+      - DATABASE_URL=${DATABASE_URL}
     restart: unless-stopped
