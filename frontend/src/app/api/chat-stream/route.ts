@@ -32,7 +32,7 @@ export const POST = async (req: NextRequest) => {
 
   const lastMessage = messages[messages.length - 1]?.content;
 
-  const res = await fetch("http://127.0.0.1:5001/prompt", {
+  const res = await fetch("http://127.0.0.1:8080/prompt", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
