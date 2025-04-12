@@ -32,9 +32,11 @@ COPY --from=builder /frontend/package.json ./package.json
 COPY --from=builder /frontend/public ./public
 
 # Expose the port Next.js runs on (default is 3000)
+
+ENV PORT=3001
+
 EXPOSE 3001
 
-ENV PORT 3001
 
 # Start the Next.js app
 CMD ["npm", "start"]
