@@ -1,11 +1,11 @@
 FROM python:3.11-slim
 
-WORKDIR /ai-coach/backend
+WORKDIR /backend
 
-COPY ai-coach/backend/requirements.txt .
+COPY backend/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ai-coach/backend/ .
+COPY backend/ .
 
 CMD ["python", "app.py"]
