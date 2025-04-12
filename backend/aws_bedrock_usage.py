@@ -60,6 +60,7 @@ def get_agent_response(prompt):
                 completion += chunk["bytes"].decode("utf-8")
 
         return {
+            "question" : prompt, 
             "response_text": completion
         }
 
