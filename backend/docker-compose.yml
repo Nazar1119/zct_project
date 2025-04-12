@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: ai_coach
     ports:
-      - "5001:5001"
+      - "8080:8080"
     volumes:
       - ./zct:/zct
     environment:
