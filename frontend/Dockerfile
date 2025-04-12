@@ -20,16 +20,16 @@ RUN npm run build
 FROM node:20-alpine AS runner
 
 # Set working directory
-WORKDIR frontend
+WORKDIR /frontend
 
 # Set environment to production
 ENV NODE_ENV=production
 
 # Copy only the necessary files from the builder stage
-COPY --from=builder frontend/.next ./.next
-COPY --from=builder frontend/node_modules ./node_modules
-COPY --from=builder frontend/package.json ./package.json
-COPY --from=builder frontend/public ./public
+COPY --from=builder /frontend/.next ./.next
+COPY --from=builder /frontend/node_modules ./node_modules
+COPY --from=builder /frontend/package.json ./package.json
+COPY --from=builder /frontend/public ./public
 
 # Expose the port Next.js runs on (default is 3000)
 EXPOSE 3000
