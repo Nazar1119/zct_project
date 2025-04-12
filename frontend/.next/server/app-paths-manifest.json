@@ -1,5 +1,0 @@
-{
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/chat-stream/route": "app/api/chat-stream/route.js",
-  "/ai-bot/page": "app/ai-bot/page.js"
-}
