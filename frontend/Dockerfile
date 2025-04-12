@@ -2,9 +2,9 @@
 FROM node:20-alpine AS builder
 
 # Set working directory
-WORKDIR /app
+WORKDIR /frontend
 
-# Copy package.json and package-lock.json (or yarn.lock) to install dependencies
+# Copy package.json and package-lock.json to install dependencies
 COPY package.json package-lock.json ./
 
 # Install dependencies
@@ -20,19 +20,23 @@ RUN npm run build
 FROM node:20-alpine AS runner
 
 # Set working directory
-WORKDIR /app
+WORKDIR /frontend
 
 # Set environment to production
 ENV NODE_ENV=production
 
 # Copy only the necessary files from the builder stage
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/public ./public
+COPY --from=builder /frontend/.next ./.next
+COPY --from=builder /frontend/node_modules ./node_modules
+COPY --from=builder /frontend/package.json ./package.json
+COPY --from=builder /frontend/public ./public
 
 # Expose the port Next.js runs on (default is 3000)
-EXPOSE 3000
+
+ENV PORT=3001
+
+EXPOSE 3001
+
 
 # Start the Next.js app
 CMD ["npm", "start"]

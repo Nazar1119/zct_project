@@ -1,7 +1,6 @@
 "use client"
 
 import { Messages } from "./Messages"
-import { Bot } from "lucide-react"
 import { useState } from "react";
 import { Message as TMessage } from "ai/react";
 
