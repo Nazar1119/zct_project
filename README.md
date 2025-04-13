@@ -21,7 +21,7 @@ Naším cieľom bolo vytvoriť vlastného asistenta s umelou inteligenciou, ktor
 
 Takto vyzerá náš AI asistent v praxi:
 
-![Ukážka UI asistenta]([images/gym-ui.png](https://github.com/Nazar1119/zct_project/blob/full-project/media/Diagram.png))
+![Ukážka Diagram](media/Diagram.png)
 
 
 ## Proces fungovania
