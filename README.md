@@ -35,7 +35,7 @@ Takto vyzerá náš AI asistent v praxi:
 
 ## Rozdelenie úloh
 
-- 🙍‍♀️ **Oleksandra Petsa** – Backend  
+- 🙍‍♀🙍‍♂️ **Oleksandr Petsa** – Backend  
 - 🙍‍♂️ **Nazarii Tymochko** – Frontend  
 - 🙍‍♂️ **Andras Jancsik** – Dizajn používateľského rozhrania & Dokumentacia
 - 🙍‍♂️ **Daniil Sputai** – AI integrácia (AWS Bedrock)  
