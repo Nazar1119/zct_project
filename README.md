@@ -37,7 +37,7 @@ Takto vyzerá náš AI asistent v praxi:
 
 - 🙍‍♀️ **Oleksandra Petsa** – Backend  
 - 🙍‍♂️ **Nazarii Tymochko** – Frontend  
-- 🙍‍♂️ **Andras Jancsik** – Dizajn používateľského rozhrania  
+- 🙍‍♂️ **Andras Jancsik** – Dizajn používateľského rozhrania & Dokumentacia
 - 🙍‍♂️ **Daniil Sputai** – AI integrácia (AWS Bedrock)  
 
 ---
