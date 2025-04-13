@@ -17,6 +17,12 @@ Naším cieľom bolo vytvoriť vlastného asistenta s umelou inteligenciou, ktor
 - 🔧 **Backend:** Flask  
 
 ---
+## 🖼️ Ukážka diagramu 
+
+Takto vyzerá náš AI asistent v praxi:
+
+![Ukážka UI asistenta](images/gym-ui.png)
+
 
 ## Proces fungovania
 
