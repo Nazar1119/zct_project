@@ -53,3 +53,7 @@ Takto vyzerá náš AI asistent v praxi:
 5. Zapni si hudbu v slúchadlách a poďme makať! 💪🎧
 
 ---
+
+## Click the picture below and see how it works
+
+[![Watch video](media/img.png)](https://youtu.be/hHOqgsh_OCc)
